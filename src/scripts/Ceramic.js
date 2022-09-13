@@ -3,7 +3,7 @@ import { DID } from "dids";
 import { getResolver as getKeyResolver } from "key-did-resolver";
 import { getResolver as get3IDResolver } from "@ceramicnetwork/3id-did-resolver";
 import { EthereumAuthProvider, ThreeIdConnect } from "@3id/connect";
-import { TileDocument } from '@ceramicnetwork/stream-tile'
+import { TileDocument } from "@ceramicnetwork/stream-tile";
 
 const threeID = new ThreeIdConnect();
 const ceramic = new CeramicClient("https://ceramic-clay.3boxlabs.com");
@@ -38,14 +38,17 @@ async function loadDocument(id) {
 }
 
 async function createDocument(content) {
-  console.log(ceramic.did)
-  const doc = await TileDocument.create(ceramic, content, {family: 'desci-exchange', controllers: [ceramic.did.id]});
+  console.log(ceramic.did);
+  const doc = await TileDocument.create(ceramic, content, {
+    family: "desci-exchange",
+    controllers: [ceramic.did.id],
+  });
   return doc.id;
 }
 
 async function updateDocument(id, content) {
   const doc = await TileDocument.load(ceramic, id);
-  await doc.update(content);  
+  await doc.update(content);
 }
 
 export { loadDocument, authenticateCeramic, createDocument, updateDocument };
